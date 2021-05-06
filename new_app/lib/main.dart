@@ -29,20 +29,64 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: primaryColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('TO-DO List'),
+                  SizedBox(height: 20.0),
+                  CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage: NetworkImage(
+                        'https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg'),
+                  ),
+                  IconButton(
+                    color: secondaryColor,
+                    onPressed: () {
+                      setState(() {
+                        theme = !theme;
+                        primaryColor =
+                            theme ? Color(0xff81C9F9) : Colors.redAccent;
+                        secondaryColor =
+                            theme ? Color(0xff545454) : Colors.grey[850];
+                      });
+                    },
+                    icon: Icon(theme
+                        ? Icons.toggle_off_outlined
+                        : Icons.toggle_on_outlined),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Damjan Zimbakov',
+              ),
+              subtitle: Text('NAME'),
+            ),
+            ListTile(
+              title: Text(
+                'zimbakov10damjan@gmail.com',
+              ),
+              subtitle: Text('E-MAIL'),
+            ),
+            ListTile(
+              title: Text(
+                'Software Engineer',
+              ),
+              subtitle: Text('JOB'),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: secondaryColor,
       appBar: AppBar(
-        leading: IconButton(
-          color: secondaryColor,
-          onPressed: () {
-            setState(() {
-              theme = !theme;
-              primaryColor = theme ? Color(0xff81C9F9) : Colors.redAccent;
-              secondaryColor = theme ? Color(0xff545454) : Colors.grey[850];
-            });
-          },
-          icon: Icon(
-              theme ? Icons.toggle_off_outlined : Icons.toggle_on_outlined),
-        ),
         toolbarHeight: 100.0,
         centerTitle: true,
         title: Text(
@@ -73,87 +117,94 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: tertiaryColor,
             onPressed: () {
               return showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        backgroundColor: secondaryColor,
-                        title: Text(
-                          'Add new task',
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: secondaryColor,
+                    title: Text(
+                      'Add new task',
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    content: Container(
+                      height: 120.0,
+                      width: 120.0,
+                      child: Column(
+                        children: [
+                          TextField(
+                            autocorrect: true,
+                            textCapitalization: TextCapitalization.sentences,
+                            maxLength: 30,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              hintText: 'Add new task...',
+                              hintStyle: TextStyle(
+                                color: primaryColor,
+                              ),
+                              labelStyle: TextStyle(
+                                color: primaryColor,
+                              ),
+                            ),
+                            onChanged: (String result) {
+                              setState(() {
+                                _value = result;
+                              });
+                            },
+                            textInputAction: TextInputAction.go,
+                            onSubmitted: (_value) {
+                              setState(() {
+                                todos.add(_value);
+                                Navigator.of(context).pop();
+                                state.add(false);
+                              });
+                            },
                           ),
-                        ),
-                        content: Container(
-                            height: 120.0,
-                            width: 120.0,
-                            child: Column(children: [
-                              TextField(
-                                autocorrect: true,
-                                textCapitalization:
-                                    TextCapitalization.sentences,
-                                maxLength: 30,
-                                autofocus: true,
-                                decoration: InputDecoration(
-                                  hintText: 'Add new task...',
-                                  hintStyle: TextStyle(
-                                    color: primaryColor,
-                                  ),
-                                  labelStyle: TextStyle(
-                                    color: primaryColor,
+                          SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: primaryColor,
+                                ),
+                                child: Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: secondaryColor,
                                   ),
                                 ),
-                                onChanged: (String result) {
-                                  setState(() {
-                                    _value = result;
-                                  });
-                                },
-                                textInputAction: TextInputAction.go,
-                                onSubmitted: (_value) {
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
                                   setState(() {
                                     todos.add(_value);
                                     Navigator.of(context).pop();
                                     state.add(false);
                                   });
                                 },
+                                style: ElevatedButton.styleFrom(
+                                  primary: primaryColor,
+                                ),
+                                child: Text(
+                                  'Save',
+                                  style: TextStyle(
+                                    color: secondaryColor,
+                                  ),
+                                ),
                               ),
-                              SizedBox(height: 10.0),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: primaryColor,
-                                      ),
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                          color: secondaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            todos.add(_value);
-                                            Navigator.of(context).pop();
-                                            state.add(false);
-                                          });
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: primaryColor,
-                                        ),
-                                        child: Text('Save',
-                                            style: TextStyle(
-                                              color: secondaryColor,
-                                            )))
-                                  ]),
-                            ])));
-                  });
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
             },
           ),
         ),

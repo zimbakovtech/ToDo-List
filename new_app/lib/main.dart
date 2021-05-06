@@ -76,89 +76,83 @@ class _HomeScreenState extends State<HomeScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      backgroundColor: secondaryColor,
-                      title: Text(
-                        'Add new task',
-                        style: TextStyle(
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold,
+                        backgroundColor: secondaryColor,
+                        title: Text(
+                          'Add new task',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      content: Container(
-                        height: 120.0,
-                        width: 120.0,
-                        child: Column(
-                          children: [
-                            TextField(
-                              autocorrect: true,
-                              textCapitalization: TextCapitalization.sentences,
-                              maxLength: 30,
-                              autofocus: true,
-                              decoration: InputDecoration(
-                                hintText: 'Add new task...',
-                                hintStyle: TextStyle(
-                                  color: primaryColor,
+                        content: Container(
+                            height: 120.0,
+                            width: 120.0,
+                            child: Column(children: [
+                              TextField(
+                                autocorrect: true,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                maxLength: 30,
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  hintText: 'Add new task...',
+                                  hintStyle: TextStyle(
+                                    color: primaryColor,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    color: primaryColor,
+                                  ),
                                 ),
-                                labelStyle: TextStyle(
-                                  color: primaryColor,
-                                ),
-                              ),
-                              onChanged: (String result) {
-                                setState(() {
-                                  _value = result;
-                                });
-                              },
-                              textInputAction: TextInputAction.go,
-                              onSubmitted: (_value) {
-                                setState(() {
-                                  todos.add(_value);
-                                  Navigator.of(context).pop();
-                                  state.add(false);
-                                });
-                              },
-                            ),
-                            SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
+                                onChanged: (String result) {
+                                  setState(() {
+                                    _value = result;
+                                  });
+                                },
+                                textInputAction: TextInputAction.go,
+                                onSubmitted: (_value) {
+                                  setState(() {
+                                    todos.add(_value);
                                     Navigator.of(context).pop();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: primaryColor,
-                                  ),
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      color: secondaryColor,
+                                    state.add(false);
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 10.0),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: primaryColor,
+                                      ),
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          color: secondaryColor,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      todos.add(_value);
-                                      Navigator.of(context).pop();
-                                      state.add(false);
-                                    });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    primary: primaryColor,
-                                  ),
-                                  child: Text(
-                                    'Save',
-                                    style: TextStyle(
-                                      color: secondaryColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            todos.add(_value);
+                                            Navigator.of(context).pop();
+                                            state.add(false);
+                                          });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: primaryColor,
+                                        ),
+                                        child: Text('Save',
+                                            style: TextStyle(
+                                              color: secondaryColor,
+                                            )))
+                                  ]),
+                            ])));
                   });
             },
           ),
